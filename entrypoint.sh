@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/ash
 cd /home/container
 
 # Replace Startup Variables
@@ -26,25 +26,20 @@ function createProxyYml {
         exit 1
     fi
 
-    # Split the firstDomains and firstAddresses into arrays
-    IFS=',' read -r -a domainsArray <<<"$1"
-    IFS=',' read -r -a addressesArray <<<"$2"
-
-    # Create a first.yml file in the proxies folder
-
     # If file exists, delete it
     if [ -f "/home/container/proxies/$3.yml" ]; then
         rm /home/container/proxies/$3.yml
     fi
 
-    echo "domains:" >/home/container/proxies/$3.yml
-    for domain in "${domainsArray[@]}"; do
-        echo "  - $domain" >>/home/container/proxies/$3.yml
+    # Create the file
+    echo "domains:" >"/home/container/proxies/$3.yml"
+    echo "$1" | while IFS=',' read -r domain; do
+        echo "  - $domain" >>"/home/container/proxies/$3.yml"
     done
 
-    echo "addresses:" >>/home/container/proxies/$3.yml
-    for address in "${addressesArray[@]}"; do
-        echo "  - $address" >>/home/container/proxies/$3.yml
+    echo "addresses:" >>"/home/container/proxies/$3.yml"
+    echo "$2" | while IFS=',' read -r address; do
+        echo "  - $address" >>"/home/container/proxies/$3.yml"
     done
 }
 
