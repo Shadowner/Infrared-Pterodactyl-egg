@@ -15,7 +15,7 @@
     "file_denylist": [],
     "startup": "infrared",
     "config": {
-        "files": "{\r\n    \"config.yml\": {\r\n        \"parser\": \"yaml\",\r\n        \"find\": {\r\n            \"bind\": \"0.0.0.0:{{server.build.default.port}}\",\r\n            \"keepAliveTimeout\": \"{{env.keepAliveTimeout}}s\",\r\n            \"filters.rateLimiter.maxRequests\": \"{{env.rateLimiter.maxRequests}}\",\r\n            \"filters.rateLimiter.timeWindow\": \"{{env.rateLimiter.timeWindow}}s\"\r\n        }\r\n    }\r\n}",
+        "files": "{\r\n    \"config.yml\": {\r\n        \"parser\": \"yaml\",\r\n        \"find\": {\r\n            \"bind\": \"0.0.0.0:{{server.build.default.port}}\",\r\n            \"keepAliveTimeout\": \"{{env.keepAliveTimeout}}s\",\r\n            \"filters.rateLimiter.requestLimit\": \"{{env.rateLimiterMaxRequests}}\",\r\n            \"filters.rateLimiter.windowLength\": \"{{env.rateLimiterTimeWindow}}s\"\r\n        }\r\n    }\r\n}",
         "startup": "{\r\n    \"done\": \"System is online\"\r\n}",
         "logs": "{}",
         "stop": "^C"
@@ -33,7 +33,7 @@
             "description": "Maximum duration between packets before the client gets timed out.",
             "env_variable": "keepAliveTimeout",
             "default_value": "30",
-            "user_viewable": false,
+            "user_viewable": true,
             "user_editable": true,
             "rules": "required|int",
             "field_type": "text"
@@ -43,7 +43,7 @@
             "description": "Request Limit is the amount of times an IP address can create a new connection before it gets blocked.",
             "env_variable": "rateLimiterMaxRequests",
             "default_value": "10",
-            "user_viewable": false,
+            "user_viewable": true,
             "user_editable": true,
             "rules": "required|int",
             "field_type": "text"
@@ -53,7 +53,7 @@
             "description": "Windows Length is the time frame for the Request Limit.",
             "env_variable": "rateLimiterTimeWindow",
             "default_value": "1",
-            "user_viewable": false,
+            "user_viewable": true,
             "user_editable": true,
             "rules": "required|int",
             "field_type": "text"
@@ -63,7 +63,7 @@
             "description": "A list of domains for the addresses listed, separated by a coma.",
             "env_variable": "DOMAINS_1",
             "default_value": "localhost",
-            "user_viewable": false,
+            "user_viewable": true,
             "user_editable": true,
             "rules": "required|string|max:10000",
             "field_type": "text"
@@ -73,7 +73,7 @@
             "description": "A list of addresses including ports separated by a coma.",
             "env_variable": "ADDRESSES_1",
             "default_value": "127.0.0.1:25565",
-            "user_viewable": false,
+            "user_viewable": true,
             "user_editable": true,
             "rules": "required|string|max:200000",
             "field_type": "text"
@@ -83,7 +83,7 @@
             "description": "A list of domains for the addresses listed, separated by a coma.",
             "env_variable": "DOMAINS_2",
             "default_value": "localhost",
-            "user_viewable": false,
+            "user_viewable": true,
             "user_editable": true,
             "rules": "required|string|max:10000",
             "field_type": "text"
@@ -93,7 +93,7 @@
             "description": "A list of addresses including ports separated by a coma.",
             "env_variable": "ADDRESSES_2",
             "default_value": "127.0.0.1:25565",
-            "user_viewable": false,
+            "user_viewable": true,
             "user_editable": true,
             "rules": "required|string|max:200000",
             "field_type": "text"
