@@ -14,42 +14,58 @@ if [ ! -d "/home/container/proxies" ]; then
 fi
 
 function createProxyYml {
+
+    local proxyNumber=$1
+    local domains="${proxyNumber}_DOMAINS"
+    local addresses="${proxyNumber}_ADDRESSES"
+
     # Check if the env variable is set
-    if [ -z "$1" ]; then
-        echo "The domains variable is not set. Please set it to the $3 domain of the proxy"
+    if [ -z "${!domains}" ]; then
+        echo "The domains variable is not set. Please set it to the $1 domain of the proxy"
         exit 1
     fi
 
     # Check if the env variable is set
-    if [ -z "$2" ]; then
-        echo "The addresses env variable is not set. Please set it to the $3 domain of the proxy"
+    if [ -z "${!addresses}" ]; then
+        echo "The addresses env variable is not set. Please set it to the $1 domain of the proxy"
         exit 1
     fi
 
     # If file exists, delete it
-    if [ -f "/home/container/proxies/$3.yml" ]; then
-        rm /home/container/proxies/$3.yml
+    if [ -f "/home/container/proxies/$1.yml" ]; then
+        rm /home/container/proxies/$1.yml
     fi
 
     # Create the file
-    echo "domains:" >"/home/container/proxies/$3.yml"
-    echo "$1" | while IFS=',' read -r domain; do
-        echo "  - $domain" >>"/home/container/proxies/$3.yml"
+    echo "domains:" >"/home/container/proxies/$1.yml"
+    echo "${!domains}" | while IFS=',' read -r domain; do
+        echo "  - $domain" >>"/home/container/proxies/$1.yml"
     done
 
-    echo "addresses:" >>"/home/container/proxies/$3.yml"
-    echo "$2" | while IFS=',' read -r address; do
-        echo "  - $address" >>"/home/container/proxies/$3.yml"
+    echo "addresses:" >>"/home/container/proxies/$1.yml"
+    echo "${addresses}" | while IFS=',' read -r address; do
+        echo "  - $address" >>"/home/container/proxies/$1.yml"
     done
 }
 
 # Check if PROXY_COUNT is set if not assume the User configured everything manually
-if [ -z "$PROXY_COUNT" ]; then
+if [ -n "$PROXY_COUNT" ]; then
+    # Check if it's a number
+    if ! [[ $PROXY_COUNT =~ ^[0-9]+$ ]]; then
+        echo "The PROXY_COUNT env variable is not a number"
+        exit 1
+    fi
+
     # Loop through the number of proxies and create the yml files
     for i in $(seq 1 $PROXY_COUNT); do
         # Check if both env variables are set if not continue
         if [ -n "${i}_DOMAINS" ] && [ -n "${i}_ADDRESSES" ]; then
-            createProxyYml ${i}_DOMAINS ${i}_ADDRESSES $i
+            # Print the domains and addresses
+            echo "Domains: ${i}_DOMAINS"
+            echo "Addresses: ${i}_ADDRESSES"
+
+            # Create the yml file
+            createProxyYml i
         fi
     done
 fi
