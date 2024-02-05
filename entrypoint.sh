@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/bash
 cd /home/container
 
 # Replace Startup Variables
