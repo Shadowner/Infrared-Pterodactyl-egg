@@ -28,4 +28,4 @@ jobs:
         run:  docker build . --file Dockerfile --tag shadowner/infrared-egg:latest
 
       - name: Push the latest Docker image
-        run: docker push shadowner/edt-epsi:infrared-egg:latest
+        run: docker push shadowner/infrared-egg:latest
