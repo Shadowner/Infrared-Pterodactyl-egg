@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/bash
 cd /home/container
 
 # Replace Startup Variables
@@ -16,8 +16,8 @@ fi
 function createProxyYml {
 
     local proxyNumber=$1
-    local domains="${proxyNumber}_DOMAINS"
-    local addresses="${proxyNumber}_ADDRESSES"
+    local domains="DOMAINS_${proxyNumber}"
+    local addresses="ADDRESSES_${proxyNumber}"
 
     # Check if the env variable is set
     if [ -z "${!domains}" ]; then
