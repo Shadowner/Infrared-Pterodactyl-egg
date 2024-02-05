@@ -39,7 +39,7 @@ function createProxyYml {
     # Create the file
     echo "domains:" >"/home/container/proxies/$1.yml"
     echo "${!domains}" | while IFS=',' read -r domain; do
-        echo "  - $domain" >>"/home/container/proxies/$1.yml"
+        echo "  - \"$domain\"" >>"/home/container/proxies/$1.yml"
     done
 
     echo "addresses:" >>"/home/container/proxies/$1.yml"
