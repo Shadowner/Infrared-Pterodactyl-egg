@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - "main"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to DockerHub Registry
+        run: docker login -u shadowner -p ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build the latest Docker image
+        run:  docker build . --file Dockerfile --tag shadowner/infrared-egg:latest
+
+      - name: Push the latest Docker image
+        run: docker push shadowner/edt-epsi:infrared-egg:latest
