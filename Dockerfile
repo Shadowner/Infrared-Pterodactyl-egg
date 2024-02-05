@@ -1,6 +1,6 @@
 FROM alpine:3.19
 
-RUN apk add --no-cache --update curl wget\
+RUN apk add --no-cache --update curl wget bash\
     && adduser --disabled-password --home /home/container container
 
 USER container
