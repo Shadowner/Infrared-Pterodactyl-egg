@@ -43,7 +43,7 @@ function createProxyYml {
     done
 
     echo "addresses:" >>"/home/container/proxies/$1.yml"
-    echo "${addresses}" | while IFS=',' read -r address; do
+    echo "${!addresses}" | while IFS=',' read -r address; do
         echo "  - $address" >>"/home/container/proxies/$1.yml"
     done
 }
@@ -58,15 +58,7 @@ if [ -n "$PROXY_COUNT" ]; then
 
     # Loop through the number of proxies and create the yml files
     for i in $(seq 1 $PROXY_COUNT); do
-        # Check if both env variables are set if not continue
-        if [ -n "${i}_DOMAINS" ] && [ -n "${i}_ADDRESSES" ]; then
-            # Print the domains and addresses
-            echo "Domains: ${i}_DOMAINS"
-            echo "Addresses: ${i}_ADDRESSES"
-
-            # Create the yml file
-            createProxyYml i
-        fi
+        createProxyYml $i
     done
 fi
 
