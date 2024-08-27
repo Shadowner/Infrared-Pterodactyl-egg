@@ -16,5 +16,5 @@ TLDR; It'a reverse proxy for minecraft that allow you to only have one shown por
 4. Setup the environment variables as needed by the egg.
 5. Start the server.
 
-## Warning : 
-Actually the Infrared server doesn't stop when the stop button is pressed on the panel. You have to kill the server to let it shutdown.
+## Contribution 
+This project is open to any contribution ! I don't have a lot of free time to extend the project, however I will always take some time to review PR's 🙂
