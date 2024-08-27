@@ -23,8 +23,8 @@
     "scripts": {
         "installation": {
             "script": null,
-            "container": "alpine:3.4",
-            "entrypoint": "ash"
+            "container": "ghcr.io\/parkervcp\/installers:debian",
+            "entrypoint": "bash"
         }
     },
     "variables": [
