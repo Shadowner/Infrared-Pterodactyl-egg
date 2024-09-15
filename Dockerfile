@@ -1,10 +1,11 @@
-FROM alpine:3.19
+FROM ghcr.io/parkervcp/yolks:debian
 
-RUN apk add --no-cache --update curl wget bash \
-    && adduser --disabled-password --home /home/container container
+RUN apt-get update && apt-get install -y --no-install-recommends curl wget bash \
+    && useradd -m -d /home/container container \
+    && rm -rf /var/lib/apt/lists/*
 
 USER container
-ENV  USER=container HOME=/home/container
+ENV USER=container HOME=/home/container
 
 COPY infrared /bin/infrared
 
