@@ -1,7 +1,7 @@
-name: Build and Publish Docker Image
-
+name: Build
 on:
   pull_request:
+      types: [opened, reopened]
       branches:
         - "main"
 
