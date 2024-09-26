@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - name: Login to DockerHub Registry
-        run: docker login -u shadowner -p ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Fetch the latest release of Infrared
         run: gh release download -R haveachin/infrared -p 'infrared_Linux_x86_64.tar.gz'
