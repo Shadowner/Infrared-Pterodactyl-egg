@@ -1,8 +1,8 @@
 FROM ghcr.io/parkervcp/yolks:debian
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl wget bash \
-    && useradd -m -d /home/container container \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends curl wget bash
+RUN id -u container || useradd -m -d /home/container container
+RUN rm -rf /var/lib/apt/lists/*
 
 USER container
 ENV USER=container HOME=/home/container
